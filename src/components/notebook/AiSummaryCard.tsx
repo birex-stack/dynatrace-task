@@ -12,7 +12,6 @@ export function AiSummaryCard() {
           <div className="ai-summary__title-row">
             <SparkleIcon size={16} className="ai-summary__sparkle" color="#b8f0ff" />
             <h2 id="ai-summary-title" className="ai-summary__title">AI Summary</h2>
-            <span className="ai-summary__badge">Beta</span>
           </div>
           <p className="ai-summary__sub">Key insights from this investigation</p>
         </header>
