@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { ReleaseMonitoring } from './components/dashboard/ReleaseMonitoring';
 import { NotebookScreen } from './components/notebook/NotebookScreen';
-import { LogsScreen } from './components/logs/LogsScreen';
 import type { NotebookMode } from './components/notebook/NotebookHeader';
 import type {
   AddObservationOptions,
@@ -74,24 +73,6 @@ export default function App() {
         initialMode={notebookMode}
         onNavigate={handleNavigate}
         activeNav={navIdForScreen(screen)}
-      />
-    );
-  }
-
-  if (screen === 'logs') {
-    return (
-      <LogsScreen
-        onNavigate={handleNavigate}
-        onOpenNotebookDocument={openNotebookDocument}
-        observations={observations}
-        flyoutOpen={flyoutOpen}
-        badgePulse={badgePulse}
-        notebookActive={notebookActive}
-        onNotebookActiveChange={setNotebookActive}
-        onToggleFlyout={() => setFlyoutOpen((open) => !open)}
-        onCloseFlyout={() => setFlyoutOpen(false)}
-        onAddObservation={addObservation}
-        onDeleteObservations={deleteObservations}
       />
     );
   }
