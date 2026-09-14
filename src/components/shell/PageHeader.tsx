@@ -1,5 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
-import { HelpCircle, MoreVertical, Share2 } from 'lucide-react';
+import { MoreVertical, Share2 } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { ObsBadge } from './ObsBadge';
 import './PageHeader.css';
@@ -63,13 +63,6 @@ export function PageHeader({
         <Button variant="ghost" size="sm" ariaLabel="More actions">
           <MoreVertical size={16} strokeWidth={1.7} />
         </Button>
-        <button
-          type="button"
-          className="page-header__help"
-          aria-label="Help"
-        >
-          <HelpCircle size={16} strokeWidth={1.7} />
-        </button>
         {observationBadge && (
           <ObsBadge
             count={observationBadge.count}

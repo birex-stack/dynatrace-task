@@ -63,10 +63,53 @@ export function NotebookHeader({ mode, onModeChange }: NotebookHeaderProps) {
                 {NOTEBOOK_META.title}
               </span>
             </nav>
-            <h1 className="notebook-header__title">
-              <NotebookIcon size={18} strokeWidth={1.8} />
-              <span>{NOTEBOOK_META.title}</span>
-            </h1>
+            <div className="notebook-header__title-row">
+              <h1 className="notebook-header__title">
+                <NotebookIcon size={18} strokeWidth={1.8} />
+                <span>{NOTEBOOK_META.title}</span>
+              </h1>
+              <div className="notebook-header__actions">
+                <span className="notebook-header__updated">
+                  {NOTEBOOK_META.lastUpdated}
+                </span>
+                <Button variant="ghost" size="sm" ariaLabel="Share">
+                  <Share2 size={14} strokeWidth={1.7} />
+                  Share
+                </Button>
+                <div className="notebook-header__menu-wrap" ref={menuRef}>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    ariaLabel="More actions"
+                    className={menuOpen ? 'is-menu-open' : ''}
+                    onClick={() => setMenuOpen((v) => !v)}
+                  >
+                    <MoreVertical size={16} strokeWidth={1.7} />
+                  </Button>
+                  {menuOpen && (
+                    <div className="notebook-header__menu" role="menu">
+                      {MORE_ACTIONS.map((action) => (
+                        <button
+                          key={action.id}
+                          type="button"
+                          role="menuitem"
+                          className={`notebook-header__menu-item ${
+                            action.id === 'delete' ? 'is-danger' : ''
+                          }`}
+                          onClick={() => {
+                            setMenuOpen(false);
+                            if (action.id === 'ai-skill') setSkillModalOpen(true);
+                            if (action.id === 'runbook') setGuideModalOpen(true);
+                          }}
+                        >
+                          {action.label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
             <p className="notebook-header__subtitle">{NOTEBOOK_META.goal}</p>
             <div className="notebook-header__tags">
               {NOTEBOOK_META.tags.map((tag) => (
@@ -74,48 +117,6 @@ export function NotebookHeader({ mode, onModeChange }: NotebookHeaderProps) {
                   {tag}
                 </span>
               ))}
-            </div>
-          </div>
-
-          <div className="notebook-header__actions">
-            <span className="notebook-header__updated">
-              {NOTEBOOK_META.lastUpdated}
-            </span>
-            <Button variant="ghost" size="sm" ariaLabel="Share">
-              <Share2 size={14} strokeWidth={1.7} />
-              Share
-            </Button>
-            <div className="notebook-header__menu-wrap" ref={menuRef}>
-              <Button
-                variant="ghost"
-                size="sm"
-                ariaLabel="More actions"
-                className={menuOpen ? 'is-menu-open' : ''}
-                onClick={() => setMenuOpen((v) => !v)}
-              >
-                <MoreVertical size={16} strokeWidth={1.7} />
-              </Button>
-              {menuOpen && (
-                <div className="notebook-header__menu" role="menu">
-                  {MORE_ACTIONS.map((action) => (
-                    <button
-                      key={action.id}
-                      type="button"
-                      role="menuitem"
-                      className={`notebook-header__menu-item ${
-                        action.id === 'delete' ? 'is-danger' : ''
-                      }`}
-                      onClick={() => {
-                        setMenuOpen(false);
-                        if (action.id === 'ai-skill') setSkillModalOpen(true);
-                        if (action.id === 'runbook') setGuideModalOpen(true);
-                      }}
-                    >
-                      {action.label}
-                    </button>
-                  ))}
-                </div>
-              )}
             </div>
           </div>
         </div>
