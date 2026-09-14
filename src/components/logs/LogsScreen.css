@@ -1,0 +1,59 @@
+.logs-layout {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+  align-items: stretch;
+}
+
+.logs-layout__main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.logs-page {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 14px 18px 24px;
+  width: 100%;
+  background:
+    radial-gradient(ellipse 70% 50% at 12% 8%, rgba(90, 150, 255, 0.045), transparent 55%),
+    radial-gradient(ellipse 55% 45% at 88% 18%, rgba(120, 90, 220, 0.03), transparent 50%),
+    radial-gradient(ellipse 60% 40% at 70% 85%, rgba(60, 180, 160, 0.025), transparent 55%),
+    var(--page-bg);
+}
+
+.logs-page__toolbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.logs-page__body {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+}
+
+.logs-page__primary {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (max-width: 1320px) {
+  .logs-page__body {
+    flex-direction: column;
+  }
+
+  .log-facets {
+    width: 100%;
+  }
+}
