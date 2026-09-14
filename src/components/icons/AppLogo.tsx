@@ -9,7 +9,7 @@ export function AppLogo({ width = 40, height = 36, className }: AppLogoProps) {
   return (
     <img
       className={className}
-      src="/app-icon.png?v=hex"
+      src={`${import.meta.env.BASE_URL}app-icon.png?v=hex`}
       alt=""
       width={width}
       height={height}
