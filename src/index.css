@@ -135,6 +135,9 @@ body {
   .latency-chart,
   .service-panel,
   .services-table,
+  .log-facets,
+  .log-volume-chart,
+  .log-patterns,
   .doc-kpi,
   .doc-chart__canvas {
     -webkit-backdrop-filter: blur(18px) saturate(130%) url(#liquid-glass-distort);
@@ -149,6 +152,9 @@ body {
   .latency-chart,
   .service-panel,
   .services-table,
+  .log-facets,
+  .log-volume-chart,
+  .log-patterns,
   .doc-kpi,
   .doc-chart__canvas {
     background: rgba(28, 40, 56, 0.92);
@@ -162,6 +168,9 @@ body {
   .latency-chart::before,
   .service-panel::before,
   .services-table::before,
+  .log-facets::before,
+  .log-volume-chart::before,
+  .log-patterns::before,
   .doc-kpi::before,
   .doc-chart__canvas::before {
     display: none;
