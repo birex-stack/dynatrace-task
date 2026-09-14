@@ -5,6 +5,7 @@ import { Button } from '../ui/Button';
 import { Toast } from '../interactions/Toast';
 import { NOTEBOOK_META } from '../../data/notebookData';
 import { AddAiSkillModal } from './AddAiSkillModal';
+import { SetAsGuideModal } from './SetAsGuideModal';
 import './NotebookHeader.css';
 
 export type NotebookMode = 'document' | 'investigation';
@@ -18,7 +19,7 @@ const MORE_ACTIONS = [
   { id: 'ai-skill', label: 'Add as AI skill' },
   { id: 'dashboard', label: 'Save as dashboard' },
   { id: 'workflow', label: 'Create workflow' },
-  { id: 'runbook', label: 'Save as guide' },
+  { id: 'runbook', label: 'Set as guide' },
   { id: 'clone', label: 'Clone' },
   { id: 'delete', label: 'Delete', danger: true },
 ] as const;
@@ -26,6 +27,7 @@ const MORE_ACTIONS = [
 export function NotebookHeader({ mode, onModeChange }: NotebookHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [skillModalOpen, setSkillModalOpen] = useState(false);
+  const [guideModalOpen, setGuideModalOpen] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -106,6 +108,7 @@ export function NotebookHeader({ mode, onModeChange }: NotebookHeaderProps) {
                       onClick={() => {
                         setMenuOpen(false);
                         if (action.id === 'ai-skill') setSkillModalOpen(true);
+                        if (action.id === 'runbook') setGuideModalOpen(true);
                       }}
                     >
                       {action.label}
@@ -152,6 +155,20 @@ export function NotebookHeader({ mode, onModeChange }: NotebookHeaderProps) {
               skillMode === 'existing'
                 ? `Updated skill “${skillName}” for ${agentName}`
                 : `Created skill “${skillName}” for ${agentName}`,
+            );
+          }}
+        />
+      )}
+
+      {guideModalOpen && (
+        <SetAsGuideModal
+          onCancel={() => setGuideModalOpen(false)}
+          onConfirm={({ problemTypeLabel, titleMatch }) => {
+            setGuideModalOpen(false);
+            setToast(
+              titleMatch
+                ? `Guide set for ${problemTypeLabel} problems matching “${titleMatch}”`
+                : `Guide set for ${problemTypeLabel} problems`,
             );
           }}
         />

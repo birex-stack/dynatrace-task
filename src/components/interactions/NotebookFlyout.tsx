@@ -1,4 +1,12 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+} from 'react';
 import { ChevronDown, Info, MoreVertical, X } from 'lucide-react';
 import { NotebookIcon } from '../icons/NotebookIcon';
 import { NOTEBOOK_TARGET } from '../../data/mockData';
@@ -37,6 +45,51 @@ const BULK_ACTIONS = [
 const ACTIVE_TOOLTIP =
   'When on, one-click capture adds observations directly to this notebook. When off, capture opens the full Add observation form.';
 
+const TOOLTIP_GAP = 8;
+const TOOLTIP_VIEWPORT_MARGIN = 8;
+
+function getViewportTooltipStyle(
+  trigger: DOMRect,
+  tipWidth: number,
+  tipHeight: number,
+): CSSProperties {
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+  const margin = TOOLTIP_VIEWPORT_MARGIN;
+  const gap = TOOLTIP_GAP;
+
+  const spaceAbove = trigger.top - margin;
+  const spaceBelow = vh - trigger.bottom - margin;
+  const fitsAbove = tipHeight + gap <= spaceAbove;
+  const fitsBelow = tipHeight + gap <= spaceBelow;
+
+  let placeAbove: boolean;
+  if (fitsAbove) {
+    placeAbove = true;
+  } else if (fitsBelow) {
+    placeAbove = false;
+  } else {
+    placeAbove = spaceAbove >= spaceBelow;
+  }
+
+  let top = placeAbove
+    ? trigger.top - tipHeight - gap
+    : trigger.bottom + gap;
+  top = Math.max(margin, Math.min(top, vh - tipHeight - margin));
+
+  let left = trigger.left + trigger.width / 2 - tipWidth / 2;
+  left = Math.max(margin, Math.min(left, vw - tipWidth - margin));
+
+  return {
+    position: 'fixed',
+    top,
+    left,
+    bottom: 'auto',
+    right: 'auto',
+    transform: 'none',
+  };
+}
+
 export function NotebookFlyout({
   observations,
   notebookActive,
@@ -48,7 +101,11 @@ export function NotebookFlyout({
   const [openMenuId, setOpenMenuId] = useState<string | null>(null);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [bulkOpen, setBulkOpen] = useState(false);
+  const [tooltipOpen, setTooltipOpen] = useState(false);
+  const [tooltipStyle, setTooltipStyle] = useState<CSSProperties>();
   const bulkRef = useRef<HTMLDivElement>(null);
+  const infoRef = useRef<HTMLSpanElement>(null);
+  const tooltipRef = useRef<HTMLSpanElement>(null);
 
   const observationIds = useMemo(
     () => observations.map((o) => o.id),
@@ -76,6 +133,29 @@ export function NotebookFlyout({
       window.removeEventListener('mousedown', onPointer);
     };
   }, [bulkOpen]);
+
+  const updateTooltipPosition = useCallback(() => {
+    const trigger = infoRef.current;
+    const tip = tooltipRef.current;
+    if (!trigger || !tip) return;
+    const triggerRect = trigger.getBoundingClientRect();
+    const tipRect = tip.getBoundingClientRect();
+    setTooltipStyle(
+      getViewportTooltipStyle(triggerRect, tipRect.width, tipRect.height),
+    );
+  }, []);
+
+  useLayoutEffect(() => {
+    if (!tooltipOpen) return;
+    updateTooltipPosition();
+    const onReposition = () => updateTooltipPosition();
+    window.addEventListener('resize', onReposition);
+    window.addEventListener('scroll', onReposition, true);
+    return () => {
+      window.removeEventListener('resize', onReposition);
+      window.removeEventListener('scroll', onReposition, true);
+    };
+  }, [tooltipOpen, updateTooltipPosition]);
 
   const allSelected =
     observations.length > 0 && selectedIds.length === observations.length;
@@ -151,9 +231,24 @@ export function NotebookFlyout({
             </span>
             <span className="notebook-flyout__active-label">Set as active</span>
           </button>
-          <span className="notebook-flyout__info" tabIndex={0}>
+          <span
+            className="notebook-flyout__info"
+            ref={infoRef}
+            tabIndex={0}
+            aria-describedby={tooltipOpen ? 'notebook-active-tooltip' : undefined}
+            onMouseEnter={() => setTooltipOpen(true)}
+            onMouseLeave={() => setTooltipOpen(false)}
+            onFocus={() => setTooltipOpen(true)}
+            onBlur={() => setTooltipOpen(false)}
+          >
             <Info size={13} strokeWidth={1.8} aria-hidden />
-            <span className="notebook-flyout__tooltip" role="tooltip">
+            <span
+              id="notebook-active-tooltip"
+              className={`notebook-flyout__tooltip${tooltipOpen ? ' is-visible' : ''}`}
+              ref={tooltipRef}
+              role="tooltip"
+              style={tooltipStyle}
+            >
               {ACTIVE_TOOLTIP}
             </span>
           </span>

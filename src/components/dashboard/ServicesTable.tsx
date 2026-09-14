@@ -1,15 +1,18 @@
 import { SERVICES, type ServiceRow } from '../../data/mockData';
 import { QuickCaptureButton } from '../interactions/QuickCaptureButton';
+import { TableRowActions } from '../interactions/TableRowActions';
 import './ServicesTable.css';
 
 interface ServicesTableProps {
   onPaymentRowClick: (anchor: { x: number; y: number }) => void;
   onQuickCapture?: () => void;
+  onRowQuickCapture?: (row: ServiceRow) => void;
 }
 
 export function ServicesTable({
   onPaymentRowClick,
   onQuickCapture,
+  onRowQuickCapture,
 }: ServicesTableProps) {
   return (
     <section className="services-table">
@@ -32,6 +35,7 @@ export function ServicesTable({
               <th>Error rate</th>
               <th>Throughput</th>
               <th>Change</th>
+              <th className="table-row-actions-head">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -40,6 +44,7 @@ export function ServicesTable({
                 key={row.id}
                 row={row}
                 onPaymentRowClick={onPaymentRowClick}
+                onRowQuickCapture={onRowQuickCapture}
               />
             ))}
           </tbody>
@@ -52,15 +57,22 @@ export function ServicesTable({
 function ServiceTableRow({
   row,
   onPaymentRowClick,
+  onRowQuickCapture,
 }: {
   row: ServiceRow;
   onPaymentRowClick: (anchor: { x: number; y: number }) => void;
+  onRowQuickCapture?: (row: ServiceRow) => void;
 }) {
   const highlighted = Boolean(row.highlighted);
 
   return (
     <tr
-      className={highlighted ? 'is-highlighted' : undefined}
+      className={[
+        highlighted ? 'is-highlighted' : undefined,
+        onRowQuickCapture ? 'has-quick-capture' : undefined,
+      ]
+        .filter(Boolean)
+        .join(' ') || undefined}
       onClick={(e) => {
         if (!highlighted) return;
         onPaymentRowClick({ x: e.clientX, y: e.clientY });
@@ -78,6 +90,12 @@ function ServiceTableRow({
       <td className="is-numeric">{row.errorRate}</td>
       <td className="is-numeric">{row.throughput}</td>
       <td className={`is-numeric change change--${row.changeTone}`}>{row.change}</td>
+      <TableRowActions
+        onKebabClick={onPaymentRowClick}
+        onAddObservation={
+          onRowQuickCapture ? () => onRowQuickCapture(row) : undefined
+        }
+      />
     </tr>
   );
 }

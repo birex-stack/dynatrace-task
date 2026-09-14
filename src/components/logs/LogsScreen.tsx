@@ -193,6 +193,12 @@ export function LogsScreen({
                   onQuickCapture={() =>
                     handleQuickCapture('Log patterns table', 'Logs')
                   }
+                  onRowQuickCapture={(row) =>
+                    handleQuickCapture(
+                      `${row.status} pattern (${row.count}): ${row.pattern}`,
+                      'Logs',
+                    )
+                  }
                 />
               </div>
             </div>

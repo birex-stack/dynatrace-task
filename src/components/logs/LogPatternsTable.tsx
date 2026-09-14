@@ -6,12 +6,14 @@ import {
 } from '../../data/logsData';
 import { Badge } from '../ui/Badge';
 import { QuickCaptureButton } from '../interactions/QuickCaptureButton';
+import { TableRowActions } from '../interactions/TableRowActions';
 import './LogPatternsTable.css';
 
 interface LogPatternsTableProps {
   enabledStatuses: Set<LogStatus>;
   onErrorRowClick: (anchor: { x: number; y: number }) => void;
   onQuickCapture?: () => void;
+  onRowQuickCapture?: (row: LogPatternRow) => void;
 }
 
 function badgeTone(status: LogStatus) {
@@ -49,6 +51,7 @@ export function LogPatternsTable({
   enabledStatuses,
   onErrorRowClick,
   onQuickCapture,
+  onRowQuickCapture,
 }: LogPatternsTableProps) {
   const rows = LOG_PATTERNS.filter((row) => enabledStatuses.has(row.status));
 
@@ -70,6 +73,7 @@ export function LogPatternsTable({
               <th>Status</th>
               <th>Count</th>
               <th>Pattern</th>
+              <th className="table-row-actions-head">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -78,6 +82,7 @@ export function LogPatternsTable({
                 key={row.id}
                 row={row}
                 onErrorRowClick={onErrorRowClick}
+                onRowQuickCapture={onRowQuickCapture}
               />
             ))}
           </tbody>
@@ -90,15 +95,22 @@ export function LogPatternsTable({
 function PatternRow({
   row,
   onErrorRowClick,
+  onRowQuickCapture,
 }: {
   row: LogPatternRow;
   onErrorRowClick: (anchor: { x: number; y: number }) => void;
+  onRowQuickCapture?: (row: LogPatternRow) => void;
 }) {
   const highlighted = row.status === 'ERROR' && row.id === 'p1';
 
   return (
     <tr
-      className={highlighted ? 'is-highlighted' : undefined}
+      className={[
+        highlighted ? 'is-highlighted' : undefined,
+        onRowQuickCapture ? 'has-quick-capture' : undefined,
+      ]
+        .filter(Boolean)
+        .join(' ') || undefined}
       onClick={(e) => {
         if (row.status !== 'ERROR') return;
         onErrorRowClick({ x: e.clientX, y: e.clientY });
@@ -121,6 +133,12 @@ function PatternRow({
           {renderPattern(row.pattern, row.highlights)}
         </div>
       </td>
+      <TableRowActions
+        onKebabClick={onErrorRowClick}
+        onAddObservation={
+          onRowQuickCapture ? () => onRowQuickCapture(row) : undefined
+        }
+      />
     </tr>
   );
 }

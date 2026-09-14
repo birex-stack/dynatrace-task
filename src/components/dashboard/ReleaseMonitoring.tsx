@@ -158,6 +158,12 @@ export function ReleaseMonitoring({
                   onQuickCapture={() =>
                     handleQuickCapture('Services table', 'Dashboard')
                   }
+                  onRowQuickCapture={(row) =>
+                    handleQuickCapture(
+                      `${row.name} — p95 ${row.p95Ms} ms, error rate ${row.errorRate}`,
+                      'Dashboard',
+                    )
+                  }
                 />
               </div>
               <ServicePanel />

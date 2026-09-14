@@ -166,10 +166,7 @@
 }
 
 .notebook-flyout__tooltip {
-  position: absolute;
-  left: 50%;
-  bottom: calc(100% + 8px);
-  transform: translateX(-50%);
+  position: fixed;
   width: 220px;
   padding: 8px 10px;
   border-radius: 8px;
@@ -182,14 +179,15 @@
   line-height: 1.45;
   text-align: left;
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
   transition: opacity 0.12s ease;
-  z-index: 5;
+  z-index: 40;
 }
 
-.notebook-flyout__info:hover .notebook-flyout__tooltip,
-.notebook-flyout__info:focus-visible .notebook-flyout__tooltip {
+.notebook-flyout__tooltip.is-visible {
   opacity: 1;
+  visibility: visible;
 }
 
 .notebook-flyout__body {
