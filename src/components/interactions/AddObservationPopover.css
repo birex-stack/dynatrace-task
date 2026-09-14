@@ -12,7 +12,7 @@
 .observation-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(11, 23, 40, 0.48);
+  background: rgba(11, 23, 40, 0.72);
   pointer-events: auto;
 }
 
