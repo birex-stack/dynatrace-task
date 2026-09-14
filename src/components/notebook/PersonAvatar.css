@@ -1,0 +1,49 @@
+.person-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.person-avatar--md {
+  width: 22px;
+  height: 22px;
+  font-size: 9px;
+}
+
+.person-avatar--sm {
+  width: 18px;
+  height: 18px;
+  font-size: 8px;
+}
+
+.person-avatar--human {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.person-avatar--agent {
+  background: transparent;
+  border: 1px solid transparent;
+  overflow: visible;
+}
+
+.person-avatar--agent.person-avatar--md {
+  width: 24px;
+  height: 24px;
+}
+
+.person-avatar--agent.person-avatar--sm {
+  width: 20px;
+  height: 20px;
+}
+
+.person-avatar__initials {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}

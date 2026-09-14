@@ -1,0 +1,45 @@
+.quick-capture {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  border: none;
+  border-radius: var(--radius);
+  background: transparent;
+  color: #fff;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.92);
+  transition:
+    opacity 0.14s ease,
+    transform 0.14s ease,
+    background 0.12s ease,
+    color 0.12s ease;
+}
+
+.quick-capture:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.quick-capture:active {
+  transform: scale(0.88);
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.quick-capture:focus-visible {
+  opacity: 1;
+  pointer-events: auto;
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.has-quick-capture:hover .quick-capture,
+.has-quick-capture:focus-within .quick-capture {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
+}

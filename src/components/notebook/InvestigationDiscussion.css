@@ -1,0 +1,797 @@
+.discussion-panel {
+  --disc-bg: #0f1a2a;
+  --disc-bg-mid: #132033;
+  --disc-bg-lower: #15263a;
+  --disc-bg-bottom: #182b42;
+  --disc-surface: #152338;
+  --disc-border: #243449;
+  --disc-text: #e8eef6;
+  --disc-muted: #9aa8bc;
+  --disc-soft: rgba(61, 139, 253, 0.14);
+
+  width: min(38vw, 460px);
+  min-width: 340px;
+  flex-shrink: 0;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+  background:
+    linear-gradient(
+      180deg,
+      var(--disc-bg) 0%,
+      var(--disc-bg-mid) 28%,
+      var(--disc-bg-lower) 62%,
+      var(--disc-bg-bottom) 100%
+    );
+  color: var(--disc-text);
+  border-right: 1px solid var(--disc-border);
+}
+
+.discussion-panel.is-collapsed {
+  width: 44px;
+  min-width: 44px;
+}
+
+.discussion-panel__expand {
+  width: 100%;
+  height: 100%;
+  min-height: 160px;
+  border: none;
+  background: transparent;
+  color: var(--disc-muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 0;
+  cursor: pointer;
+}
+
+.discussion-panel__expand .discussion-panel__chat-icon {
+  color: #fff;
+}
+
+.discussion-panel__expand:hover {
+  color: var(--disc-text);
+  background: var(--disc-surface);
+}
+
+.discussion-panel__expand-label {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.discussion-panel__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 14px 14px 10px;
+  border-bottom: 1px solid var(--disc-border);
+  background: rgba(11, 23, 40, 0.28);
+}
+
+.discussion-panel__title {
+  margin: 0 0 4px;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--disc-text);
+}
+
+.discussion-panel__title-icon {
+  flex-shrink: 0;
+  color: #fff;
+}
+
+.discussion-panel__goal {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--disc-muted);
+}
+
+.discussion-panel__collapse {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--disc-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.discussion-panel__collapse:hover {
+  background: var(--disc-surface);
+  color: var(--disc-text);
+}
+
+.discussion-panel__participants {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--disc-border);
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.discussion-participant {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border: none;
+  background: transparent;
+  padding: 2px 4px 2px 2px;
+  border-radius: 6px;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+}
+
+.discussion-participant:hover,
+.discussion-participant.is-active {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.discussion-participant.is-active .discussion-participant__name {
+  color: #cfe0f7;
+}
+
+.discussion-participant__name {
+  font-size: 10px;
+  color: var(--disc-muted);
+}
+
+.discussion-participant--agents {
+  position: relative;
+  cursor: default;
+}
+
+.discussion-participant--agents:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.discussion-participant__tooltip {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 30;
+  min-width: 180px;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--disc-border);
+  background: #152338;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.discussion-participant--agents:hover .discussion-participant__tooltip {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.discussion-participant__tooltip-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  padding: 6px;
+  font-size: 11px;
+  color: var(--disc-text);
+  line-height: 1.3;
+  cursor: pointer;
+  font: inherit;
+}
+
+.discussion-participant__tooltip-row:hover,
+.discussion-participant__tooltip-row.is-active {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.discussion-participant__tooltip-row strong {
+  display: block;
+  font-weight: 600;
+}
+
+.discussion-participant__tooltip-role {
+  display: block;
+  font-size: 10px;
+  color: var(--disc-muted);
+  font-weight: 400;
+}
+
+.discussion-participant__tooltip .person-avatar {
+  width: 18px;
+  height: 18px;
+}
+
+.discussion-agents-glyph {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #c5d0de;
+}
+
+.discussion-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--disc-border);
+  background: rgba(61, 139, 253, 0.1);
+  font-size: 11px;
+  color: #c5d0de;
+}
+
+.discussion-filter-bar strong {
+  color: var(--disc-text);
+  font-weight: 600;
+}
+
+.discussion-filter-bar__clear {
+  border: none;
+  background: transparent;
+  color: #8cbcff;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.discussion-filter-bar__clear:hover {
+  text-decoration: underline;
+}
+
+.discussion-empty-filter {
+  margin: 16px 0;
+  padding-left: var(--disc-avatar-col, 30px);
+  font-size: 12px;
+  color: var(--disc-muted);
+}
+
+.discussion-panel__body {
+  --disc-avatar-col: 30px; /* 22px avatar + 8px gap */
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 4px 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  scrollbar-width: thin;
+  scrollbar-color: #3a516e transparent;
+}
+
+.discussion-panel__body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.discussion-panel__body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.discussion-panel__body::-webkit-scrollbar-thumb {
+  background: #3a516e;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.discussion-panel__body::-webkit-scrollbar-thumb:hover {
+  background: #4d6482;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.discussion-panel__body::-webkit-scrollbar-button {
+  display: none;
+  height: 0;
+  width: 0;
+}
+
+.discussion-panel__body > * {
+  padding-top: 12px;
+  margin-bottom: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.discussion-panel__body > *:first-child {
+  border-top: none;
+  padding-top: 10px;
+}
+
+.discussion-panel__body > *:last-child {
+  margin-bottom: 4px;
+}
+
+.discussion-msg {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.discussion-msg__body {
+  min-width: 0;
+}
+
+.discussion-card,
+.discussion-system {
+  margin-left: var(--disc-avatar-col);
+  max-width: calc(100% - var(--disc-avatar-col));
+  box-sizing: border-box;
+}
+
+.discussion-msg__meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 3px;
+}
+
+.discussion-msg__name {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.discussion-msg__text {
+  font-size: 12px;
+  line-height: 1.45;
+  color: #d5deea;
+}
+
+.discussion-msg__text.is-loading {
+  color: var(--disc-muted);
+  font-style: italic;
+}
+
+.discussion-msg__decision-badge {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: #9fdfc0;
+  background: rgba(31, 138, 91, 0.18);
+  border: 1px solid rgba(109, 202, 160, 0.28);
+}
+
+.discussion-msg__observation-badge {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: #b8d4ff;
+  background: rgba(61, 139, 253, 0.18);
+  border: 1px solid rgba(61, 139, 253, 0.32);
+}
+
+.discussion-msg__decision-detail {
+  margin-top: 4px;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--disc-muted);
+}
+
+.discussion-msg.is-decision .discussion-msg__text {
+  font-weight: 500;
+}
+
+.discussion-observation {
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-radius: var(--radius);
+  background: rgba(61, 139, 253, 0.08);
+  border: 1px solid rgba(61, 139, 253, 0.22);
+}
+
+.discussion-observation__title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--disc-text);
+}
+
+.discussion-observation__line {
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--disc-muted);
+}
+
+.discussion-evidence {
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-radius: var(--radius);
+  background: var(--disc-surface);
+  border: 1px solid var(--disc-border);
+}
+
+.discussion-evidence__title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--disc-text);
+}
+
+.discussion-evidence__line {
+  font-size: 11px;
+  color: var(--disc-muted);
+  line-height: 1.4;
+}
+
+.discussion-evidence__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.discussion-card {
+  padding: 12px;
+  border-radius: var(--radius);
+  background: var(--disc-surface);
+  border: 1px solid var(--disc-border);
+}
+
+.discussion-card--synthesis {
+  border-color: rgba(61, 139, 253, 0.35);
+  background: linear-gradient(
+    180deg,
+    rgba(61, 139, 253, 0.12) 0%,
+    var(--disc-surface) 48%
+  );
+}
+
+.discussion-card__eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #8cbcff;
+  margin-bottom: 8px;
+}
+
+.discussion-card__row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 8px;
+}
+
+.discussion-card__label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--disc-muted);
+}
+
+.discussion-card__value {
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--disc-text);
+}
+
+.discussion-card__stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 4px 0 10px;
+  padding: 8px 0;
+  border-top: 1px solid var(--disc-border);
+  border-bottom: 1px solid var(--disc-border);
+}
+
+.discussion-card__stat-label {
+  font-size: 10px;
+  color: var(--disc-muted);
+  margin-bottom: 2px;
+}
+
+.discussion-card__stat-value {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.discussion-card__stat-value.is-warning {
+  color: #e2b15a;
+}
+
+.discussion-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.discussion-evidence-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 8px 0 4px;
+}
+
+.discussion-evidence-split__title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.discussion-evidence-split__title.is-support {
+  color: #6dcaa0;
+}
+
+.discussion-evidence-split__title.is-contra {
+  color: #e2b15a;
+}
+
+.discussion-evidence-split ul {
+  margin: 0;
+  padding-left: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.discussion-evidence-split li {
+  font-size: 11px;
+  line-height: 1.35;
+  color: #c5d0de;
+}
+
+.discussion-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.discussion-field__label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--disc-muted);
+}
+
+.discussion-field__value {
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--disc-text);
+  padding: 8px 10px;
+  border-radius: var(--radius);
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--disc-border);
+}
+
+.discussion-note {
+  width: 100%;
+  resize: vertical;
+  min-height: 52px;
+  padding: 8px 10px;
+  border-radius: var(--radius);
+  border: 1px solid var(--disc-border);
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--disc-text);
+  font: inherit;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.discussion-note:focus {
+  outline: none;
+  border-color: #3d8bfd;
+}
+
+.discussion-note::placeholder {
+  color: #6d7d93;
+}
+
+.discussion-system {
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  background: rgba(31, 138, 91, 0.14);
+  border: 1px solid rgba(109, 202, 160, 0.28);
+}
+
+.discussion-system__title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #9fdfc0;
+  margin-bottom: 2px;
+}
+
+.discussion-system__note {
+  font-size: 11px;
+  color: #b7c4d6;
+  line-height: 1.4;
+}
+
+.discussion-checks {
+  margin: 6px 0 0;
+  padding-left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.discussion-checks li {
+  font-size: 11px;
+  color: #c5d0de;
+  line-height: 1.4;
+}
+
+.discussion-summary-block {
+  margin-bottom: 10px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--disc-text);
+}
+
+.discussion-summary-block__label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--disc-muted);
+  margin-bottom: 2px;
+}
+
+.discussion-summary-block__label.is-ruled {
+  color: #9aa8bc;
+}
+
+.discussion-summary-block__label.is-supported {
+  color: #6dcaa0;
+}
+
+.discussion-btn {
+  height: 30px;
+  padding: 0 12px;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.discussion-btn--sm {
+  height: 26px;
+  padding: 0 10px;
+  font-size: 11px;
+}
+
+.discussion-btn--primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.discussion-btn--primary:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+  color: var(--accent-ink);
+}
+
+.discussion-btn--ghost {
+  background: transparent;
+  border-color: var(--disc-border);
+  color: var(--disc-text);
+}
+
+.discussion-btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.discussion-composer {
+  flex-shrink: 0;
+  padding: 10px 14px 12px;
+  border-top: 1px solid var(--disc-border);
+  background: rgba(11, 23, 40, 0.35);
+}
+
+.discussion-composer__box {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 8px 8px 8px 12px;
+  border: 1px solid var(--disc-border);
+  border-radius: 14px;
+  background: var(--disc-surface);
+}
+
+.discussion-composer__box:focus-within {
+  border-color: rgba(61, 139, 253, 0.55);
+  box-shadow: 0 0 0 1px rgba(61, 139, 253, 0.2);
+}
+
+.discussion-composer__input {
+  flex: 1;
+  min-width: 0;
+  max-height: 96px;
+  resize: none;
+  border: none;
+  background: transparent;
+  color: var(--disc-text);
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.4;
+  padding: 4px 0;
+  outline: none;
+}
+
+.discussion-composer__input::placeholder {
+  color: #6d7d93;
+}
+
+.discussion-composer__send {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 50%;
+  background: #1473e6;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.discussion-composer__send:hover:not(:disabled) {
+  background: #0f5fbf;
+}
+
+.discussion-composer__send:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.discussion-composer__hint {
+  margin: 6px 2px 0;
+  font-size: 10px;
+  color: var(--disc-muted);
+  line-height: 1.35;
+}
+
+@media (max-width: 1100px) {
+  .discussion-panel:not(.is-collapsed) {
+    width: min(42vw, 400px);
+    min-width: 300px;
+  }
+
+  .discussion-evidence-split {
+    grid-template-columns: 1fr;
+  }
+}

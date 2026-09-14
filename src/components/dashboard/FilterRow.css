@@ -1,0 +1,31 @@
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.filter-chip {
+  height: 28px;
+  padding: 0 10px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.filter-chip:hover {
+  background: var(--surface-subtle);
+}
+
+.filter-chip--add {
+  color: var(--accent);
+  border-style: dashed;
+  border-color: rgba(61, 139, 253, 0.45);
+  background: var(--accent-soft);
+}

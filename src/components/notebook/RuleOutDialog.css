@@ -1,0 +1,93 @@
+.ruleout-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 14vh 16px 24px;
+  pointer-events: none;
+}
+
+.ruleout-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 23, 40, 0.48);
+  pointer-events: auto;
+}
+
+.ruleout-dialog {
+  position: relative;
+  z-index: 1;
+  width: 400px;
+  max-width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-menu);
+  padding: 14px;
+  pointer-events: auto;
+}
+
+.ruleout-dialog__title {
+  margin: 0 0 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.ruleout-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.ruleout-field__label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.ruleout-field__value {
+  font-size: 13px;
+  padding: 8px 10px;
+  background: var(--surface-subtle);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.ruleout-note {
+  resize: vertical;
+  min-height: 64px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  padding: 8px 10px;
+  background: var(--surface);
+}
+
+.ruleout-note:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 0;
+  border-color: var(--accent);
+}
+
+.ruleout-shared-note {
+  margin: 0 0 14px;
+  padding: 8px 10px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(61, 139, 253, 0.35);
+  background: var(--accent-soft);
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.ruleout-dialog__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}

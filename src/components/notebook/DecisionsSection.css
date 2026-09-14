@@ -1,0 +1,64 @@
+.decisions__list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.decision-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 11px 13px;
+  border-left: 3px solid var(--accent);
+}
+
+.decision-card__text {
+  margin: 0 0 6px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.decision-card__reason {
+  margin: 0 0 6px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.decision-card__reason span {
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.decision-card__meta {
+  margin: 0;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.decision-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.decision-card__chat-link {
+  padding: 0;
+  border: none;
+  background: none;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--accent);
+  cursor: pointer;
+  line-height: 1.35;
+  white-space: nowrap;
+}
+
+.decision-card__chat-link:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+}

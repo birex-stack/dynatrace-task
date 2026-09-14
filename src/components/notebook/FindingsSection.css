@@ -1,0 +1,117 @@
+.findings__list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.finding-card {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 8px 10px;
+}
+
+.finding-card.is-confirmed {
+  border-color: var(--border-strong);
+  background: var(--surface-subtle);
+}
+
+.finding-card.is-open {
+  border-color: var(--border-strong);
+  background: var(--surface-subtle);
+}
+
+.finding-card__content {
+  min-width: 0;
+  flex: 1;
+}
+
+.finding-card__title-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.finding-card__body {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.finding-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.finding-card__menu-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.finding-card__kebab {
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.finding-card__kebab:hover,
+.finding-card__kebab[aria-expanded='true'] {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.finding-card__menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 20;
+  min-width: 180px;
+  margin-top: 4px;
+  padding: 4px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-menu);
+}
+
+.finding-card__menu-item {
+  width: 100%;
+  display: block;
+  text-align: left;
+  border: none;
+  border-radius: var(--radius);
+  background: transparent;
+  padding: 8px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.finding-card__menu-item:hover {
+  background: var(--surface-subtle);
+}
+
+.finding-card__menu-item.is-emphasize {
+  background: var(--accent-soft);
+  color: var(--accent-hover);
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.finding-card__menu-item.is-emphasize:hover {
+  background: rgba(61, 139, 253, 0.22);
+}

@@ -1,0 +1,122 @@
+.services-table {
+  background: var(--glass-bg);
+  background-color: rgba(255, 255, 255, 0.012);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--glass-radius);
+  box-shadow: var(--glass-shadow);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  overflow: hidden;
+  position: relative;
+  isolation: isolate;
+}
+
+.services-table::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.03) 0%,
+    transparent 40%
+  );
+  z-index: 0;
+}
+
+.services-table > * {
+  position: relative;
+  z-index: 1;
+}
+
+.services-table__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 14px;
+  min-height: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.025);
+}
+
+.services-table__title {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.services-table__scroll {
+  overflow-x: auto;
+}
+
+.services-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.services-table th,
+.services-table td {
+  padding: 8px 14px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+  white-space: nowrap;
+}
+
+.services-table th {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.01);
+}
+
+.services-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.services-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.services-table tbody tr.is-highlighted {
+  background: rgba(240, 113, 120, 0.1);
+  box-shadow: inset 3px 0 0 var(--chart-payment);
+}
+
+.services-table tbody tr.is-highlighted:hover {
+  background: rgba(240, 113, 120, 0.14);
+}
+
+.service-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}
+
+.service-name__mark {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--chart-payment);
+}
+
+.is-numeric {
+  font-variant-numeric: tabular-nums;
+}
+
+.change--up {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+.change--down {
+  color: var(--success);
+  font-weight: 600;
+}
+
+.change--neutral {
+  color: var(--text-muted);
+  font-weight: 500;
+}

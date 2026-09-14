@@ -1,0 +1,30 @@
+.open-questions__box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 12px 14px;
+}
+
+.open-questions__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.open-questions__list li {
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  gap: 6px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.open-questions__num {
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 12px;
+}
